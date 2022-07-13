@@ -1,7 +1,5 @@
-#!/usr/bin/env node
-
-import app from './app.js';
-import sequelize from './db/db.js';
+import app from './server/app.js';
+import sequelize from './server/db/db.js';
 
 const port = process.env.PORT ?? 4000;
 
