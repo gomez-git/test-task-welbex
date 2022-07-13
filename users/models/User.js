@@ -1,7 +1,11 @@
 import { Model } from 'sequelize';
 
 export default (sequelize, DataTypes) => {
-  class User extends Model {}
+  class User extends Model {
+    toJSON() {
+      return { ...this.get(), password: undefined };
+    }
+  }
 
   User.init({
     email: {
