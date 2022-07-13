@@ -10,7 +10,7 @@ export default (sequelize, DataTypes) => {
       unique: true,
     },
     password: {
-      type: DataTypes.STRING(60),
+      type: DataTypes.STRING(64),
       allowNull: false,
     },
   }, {
