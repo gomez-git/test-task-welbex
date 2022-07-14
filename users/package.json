@@ -1,6 +1,6 @@
 {
-  "name": "test-task-welbex",
-  "description": "Solution of test task from WelbeX",
+  "name": "test-task-welbex-users",
+  "description": "Service for users",
   "version": "1.0.0",
   "type": "module",
   "repository": {

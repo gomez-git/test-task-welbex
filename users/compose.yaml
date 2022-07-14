@@ -1,0 +1,34 @@
+services:
+  app:
+    container_name: app
+    build:
+      context: .
+    command: bash -c 'make prepare && make db-migrate && npm start'
+    ports:
+      - '$PORT:$PORT'
+    environment:
+      PORT: $PORT
+      DB_USER: $DB_USER
+      DB_PASSWORD: $DB_PASSWORD
+      DB_NAME: $DB_NAME
+      DB_HOST: db
+      DB_PORT: $DB_PORT
+      SECRET_KEY: $SECRET_KEY
+      SECRET_PKEY: $SECRET_PKEY
+    depends_on:
+      - db
+
+  db:
+    container_name: db
+    image: postgres:latest
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: $DB_USER
+      POSTGRES_PASSWORD: $DB_PASSWORD
+      POSTGRES_DB: $DB_NAME
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

@@ -21,5 +21,11 @@ db-drop:
 db-migrate:
 	npx sequelize db:migrate
 
+docker-up:
+	docker compose up -d
+
+docker-down:
+	docker compose down
+
 lint:
 	npx eslint .
