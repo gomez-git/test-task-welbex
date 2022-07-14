@@ -1,6 +1,6 @@
 {
-  "name": "test-task-welbex-users",
-  "description": "Service for users",
+  "name": "test-task-welbex-notes",
+  "description": "Service for notes",
   "version": "1.0.0",
   "type": "module",
   "repository": {
