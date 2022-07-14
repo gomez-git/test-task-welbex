@@ -1,11 +1,11 @@
-import { Model, Sequelize } from 'sequelize';
+import { Model } from 'sequelize';
 
 export default (sequelize, DataTypes) => {
   class Note extends Model {}
 
   Note.init({
     user_id: {
-      type: Sequelize.UUID,
+      type: DataTypes.UUID,
       allowNull: false,
     },
     title: {
