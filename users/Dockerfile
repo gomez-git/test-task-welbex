@@ -9,4 +9,6 @@ RUN npm ci
 
 COPY . .
 
+RUN  mv .env.example .env
+
 CMD ["npm", "start"]

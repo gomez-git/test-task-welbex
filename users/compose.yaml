@@ -3,7 +3,7 @@ services:
     container_name: app
     build:
       context: .
-    command: bash -c 'make prepare && make db-migrate && npm start'
+    command: bash -c 'make db-migrate && npm start'
     ports:
       - '$PORT:$PORT'
     environment:
