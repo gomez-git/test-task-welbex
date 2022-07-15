@@ -15,3 +15,5 @@ export const update = ({ body: { title, body }, params: { id } }, { id: userId }
 export const deleteNote = ({ id }, { id: userId }) => (
   Note.destroy({ where: { id, user_id: userId } })
 );
+
+export const deleteNotes = (userId) => Note.destroy({ where: { user_id: userId } });
