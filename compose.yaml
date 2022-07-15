@@ -1,0 +1,51 @@
+services:
+  users:
+    container_name: users
+    build:
+      context: ./users
+    command: bash -c 'make db-migrate && npm start'
+    ports:
+      - '$USERS_PORT:$USERS_PORT'
+    environment:
+      PORT: $USERS_PORT
+      DB_USER: $DB_USER
+      DB_PASSWORD: $DB_PASSWORD
+      DB_NAME: $DB_USERS_NAME
+      DB_HOST: db
+      DB_PORT: $DB_PORT
+      SECRET_KEY: $SECRET_KEY
+      SECRET_PKEY: $SECRET_PKEY
+    depends_on:
+      - db
+
+  notes:
+    container_name: notes
+    build:
+      context: ./notes
+    command: bash -c 'make db-migrate && npm start'
+    ports:
+      - '$NOTES_PORT:$NOTES_PORT'
+    environment:
+      PORT: $NOTES_PORT
+      DB_USER: $DB_USER
+      DB_PASSWORD: $DB_PASSWORD
+      DB_NAME: $DB_NOTES_NAME
+      DB_HOST: db
+      DB_PORT: $DB_PORT
+      SECRET_KEY: $SECRET_KEY
+    depends_on:
+      - users
+
+  db:
+    container_name: db
+    image: postgres:latest
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: $DB_USER
+      POSTGRES_PASSWORD: $DB_PASSWORD
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
