@@ -1,4 +1,5 @@
 import * as UsersDAO from '../dao/users.js';
+import { sendDeleteMessage } from '../kafka/producer.js';
 
 export const read = async (_req, res) => {
   try {
@@ -23,6 +24,7 @@ export const update = async (req, res) => {
 export const deleteUser = async (_req, res) => {
   try {
     await UsersDAO.deleteUser(res.locals.user);
+    await sendDeleteMessage(res.locals.user);
 
     res.sendStatus(204);
   } catch (err) {
