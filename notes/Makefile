@@ -1,5 +1,9 @@
 setup: install prepare db-create db-migrate
 
+docker-setup:
+	-make db-create
+	make db-migrate
+
 install:
 	npm ci
 
@@ -20,12 +24,6 @@ db-drop:
 
 db-migrate:
 	npx sequelize db:migrate
-
-docker-up:
-	docker compose up -d
-
-docker-down:
-	docker compose down
 
 lint:
 	npx eslint .
