@@ -3,7 +3,7 @@ services:
     container_name: users
     build:
       context: ./users
-    command: bash -c 'make docker-setup && npm start'
+    command: make docker-setup start
     ports:
       - '$USERS_PORT:$USERS_PORT'
     environment:
@@ -17,12 +17,13 @@ services:
       SECRET_PKEY: $SECRET_PKEY
     depends_on:
       - db
+      - kafka
 
   notes:
     container_name: notes
     build:
       context: ./notes
-    command: bash -c 'make docker-setup && npm start'
+    command: make docker-setup start
     ports:
       - '$NOTES_PORT:$NOTES_PORT'
     environment:
@@ -35,6 +36,7 @@ services:
       SECRET_KEY: $SECRET_KEY
     depends_on:
       - db
+      - kafka
 
   db:
     container_name: db
@@ -46,6 +48,23 @@ services:
       POSTGRES_PASSWORD: $DB_PASSWORD
     volumes:
       - pgdata:/var/lib/postgresql/data
+
+  zookeeper:
+    container_name: zookeper
+    image: wurstmeister/zookeeper
+    ports:
+      - '2181:2181'
+
+  kafka:
+    container_name: kafka
+    image: wurstmeister/kafka
+    ports:
+      - '9092:9092'
+    links:
+      - zookeeper
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
 
 volumes:
   pgdata:
