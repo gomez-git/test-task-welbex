@@ -3,7 +3,7 @@ services:
     container_name: users
     build:
       context: ./users
-    command: bash -c 'make db-migrate && npm start'
+    command: bash -c 'make docker-setup && npm start'
     ports:
       - '$USERS_PORT:$USERS_PORT'
     environment:
@@ -22,7 +22,7 @@ services:
     container_name: notes
     build:
       context: ./notes
-    command: bash -c 'make db-migrate && npm start'
+    command: bash -c 'make docker-setup && npm start'
     ports:
       - '$NOTES_PORT:$NOTES_PORT'
     environment:
@@ -34,7 +34,7 @@ services:
       DB_PORT: $DB_PORT
       SECRET_KEY: $SECRET_KEY
     depends_on:
-      - users
+      - db
 
   db:
     container_name: db
