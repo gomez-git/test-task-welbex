@@ -1,8 +1,10 @@
 import * as UsersDAO from '../dao/users.js';
+import { sendCreateMessage } from '../kafka/producer.js';
 
 export const registration = async (req, res) => {
   try {
     await UsersDAO.create(req.body);
+    await sendCreateMessage(req.body.email);
 
     res.sendStatus(201);
   } catch (err) {
