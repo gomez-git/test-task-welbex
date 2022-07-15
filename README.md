@@ -1,2 +1,4 @@
-# test-task-welbex
-Solution of test task from WelbeX
+## Quick start
+```sh
+make prepare docker-up
+```
