@@ -38,6 +38,17 @@ services:
       - db
       - kafka
 
+  mail:
+    container_name: mail
+    build:
+      context: ./mail
+    ports:
+      - '$MAIL_PORT:$MAIL_PORT'
+    environment:
+      PORT: $MAIL_PORT
+    depends_on:
+      - kafka
+
   db:
     container_name: db
     image: postgres:latest
